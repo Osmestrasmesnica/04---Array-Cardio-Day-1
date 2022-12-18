@@ -86,23 +86,62 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-    const ukupanZivot = 
-    ukupno = 0
-    ukupno = ukupno + (a.passed - a.year)
+    //duzi nacin
+    var totalYears = 0;
+    for (var i=0; i < inventors.length; i++) {
+          totalYears += inventors[i].passed  - inventors[i].year
+    }
+    console.log(totalYears);
+
+    //laksi nacin
+    const ukupnoGodina = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed-inventor.year); //funkicja koja treba da se odradi za svakog inventora [i]
+    },0); //ova 0 na kraju je usvari pocetna vrednost totala kao sto je gore bilo var totalYears = 0;
+    console.log(ukupnoGodina);
 
     // 5. Sort the inventors by years lived
+    const najviseZiveli = inventors.sort((a, b) => (a.passed-a.year)>(b.passed-b.year) ? 1 : -1);
+    console.table(najviseZiveli);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    // ovo sve unosimo u link ovaj iznad u isnpect element pa u console, i tamo sve ucitavamo ovo
+    //napomena da mora stalno da se restartuje
+    // sve stavljam u sledeci komentar zato sto ne postoji ovde "document.querySelector('.mw-category');" koji mogu da uzmem i ne mogu dalje nista da kucam jer ovde dobijam null
+    
+    /*
+    const categorija = document.querySelector('.mw-category');
+    //const links = categorija.querySelectorAll('a'); //.map ne radi na ovome jer je NodeLista pa moras da ga pretovirs u Array
+    const links = Array.from(categorija.querySelectorAll('a')); //koristis Array.from (....) da pretvoris u Array
+    const de = links
+      .map(link => link.textContent) //sav tekst izvlacis, ne stavljas ovde ; inace se zavrsi .map i ne prelazis na .filter
+      .filter(nazivUlice => nazivUlice.includes('de')); //naziv funkicije da sadrzi de
+    */
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const abecedno = people.sort((a, b)=> {
+      const deoimena = a.split(', '); //podelimo ceo unos na pojedinacne i uz .split podelimo ih time sto ih rastavlja u ovom slucaju , i razmak [space_]
+      const [prezimeA, imeA] = a.split(', '); //pretvaramo ga u array ovako, ali fali nam ovako prvi
+      const [prezimeB, imeB] = b.split(', '); //pretvaramo i ovaj u array ovde nam fali poslednji
+      return prezimeA > prezimeB ? 1 : -1;
+      // console.log(deoimena);
+      //console.log(prezimeA, imeA);
+    });
+    console.table(abecedno);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+    // OVO MI JE NAJTEZE
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const prevoznoSredstvo = data.reduce((obj,item) => {
+      if(!obj[item]) { //proveriti da li nema (!) definisanog objekta u spisku itema
+        obj[item]=0; //ako ga nema dodeli tom objektu vrednost 0
+      }
+      obj[item]++ //ako ga ima dodaj mu +1 odnosno ++
+      return obj; 
+    },{}); //postavimo da krecemo sa praznim objektom tj obj = 0 na pocetku
+    console.log(prevoznoSredstvo);
   </script>
 </body>
 </html>
