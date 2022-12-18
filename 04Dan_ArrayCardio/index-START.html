@@ -114,7 +114,7 @@
     //const links = categorija.querySelectorAll('a'); //.map ne radi na ovome jer je NodeLista pa moras da ga pretovirs u Array
     const links = Array.from(categorija.querySelectorAll('a')); //koristis Array.from (....) da pretvoris u Array
     const de = links
-      .map(link => link.textContent) //sav tekst izvlacis, ne stavljas ovde ; inace se zavrsi .map i ne prelazis na .filter
+      .map(link => link.textContent) //sav tekst izvlacis iz svakog <a>, ne stavljas ovde ; inace se zavrsi .map i ne prelazis na .filter
       .filter(nazivUlice => nazivUlice.includes('de')); //naziv funkicije da sadrzi de
     */
 
@@ -142,6 +142,11 @@
       return obj; 
     },{}); //postavimo da krecemo sa praznim objektom tj obj = 0 na pocetku
     console.log(prevoznoSredstvo);
+    //obj is an element passed to the reduce function which will gather data over each iteration. 
+    //For each unique element in an array, an obj will be created. 
+    //The name of the element goes into the index of the obj. 
+    //So every time an element is found, the value of that item ( the element from the data array) will increase by 1 in the obj object. 
+    //To initialize the object as a blank object, we have added {} at the end
   </script>
 </body>
 </html>
